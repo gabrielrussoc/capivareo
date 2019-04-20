@@ -57,3 +57,12 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 end
+
+# Materialize CSS
+# https://materializecss.com
+gem 'materialize-sass', '~> 1.0.0'
+
+# React
+# https://github.com/reactjs/react-rails
+gem 'webpacker'
+gem 'react-rails'
