@@ -1,6 +1,11 @@
-import React from "react"
-import PropTypes from "prop-types"
-class App extends React.Component {
+// @flow
+import React, { Component } from "react"
+
+type Props = {
+  greeting: string;
+};
+
+class App extends Component<Props> {
   render () {
     return (
       <React.Fragment>
@@ -9,8 +14,4 @@ class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  greeting: PropTypes.string
-};
 export default App
