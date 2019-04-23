@@ -8,9 +8,9 @@ type Props = {
 class App extends Component<Props> {
   render () {
     return (
-      <React.Fragment>
-        Greeting: {this.props.greeting}
-      </React.Fragment>
+      <div className='card'>
+        React: {this.props.greeting}
+      </div>
     );
   }
 }
