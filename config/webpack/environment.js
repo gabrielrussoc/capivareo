@@ -6,7 +6,7 @@ environment.plugins.prepend(
     'FlowWebpack',
     new FlowWebpackPlugin({
         failOnError: true,
-        failOnErrorWatch: true,
+        failOnErrorWatch: false,
         reportingSeverity: 'error',
         printFlowOutput: true,
         flowPath: require.main.require('flow-bin'),
