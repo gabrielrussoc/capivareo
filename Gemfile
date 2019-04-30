@@ -66,3 +66,7 @@ gem 'materialize-sass', '~> 1.0.0'
 # https://github.com/reactjs/react-rails
 gem 'webpacker'
 gem 'react-rails'
+
+# Devise
+# https://github.com/plataformatec/devise
+gem 'devise'
