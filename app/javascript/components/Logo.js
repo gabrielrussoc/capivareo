@@ -1,9 +1,12 @@
-import React from "react"
-import PropTypes from "prop-types"
-class Logo extends React.Component {
+// @flow
+import React, { Component } from "react"
+
+type Props = {};
+
+class Logo extends Component<Props> {
   render () {
     return (
-      <a href="#" className="brand-logo">Capivareo</a>
+      <a className="brand-logo">Capivareo</a>
     );
   }
 }

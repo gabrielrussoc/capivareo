@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import type { ColorType } from '../types'
 
 type Props = {
-  color: ColorType;
+  color: ColorType,
 }
 
 class Header extends Component<Props> {

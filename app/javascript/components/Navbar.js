@@ -5,7 +5,7 @@ import LoginArea from './LoginArea';
 import type { ColorType } from '../types';
 
 type Props = {
-  color: ColorType;
+  color: ColorType,
 }
 
 class Navbar extends Component<Props> {
