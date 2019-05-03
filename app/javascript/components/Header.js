@@ -5,13 +5,14 @@ import type { ColorType } from '../types'
 
 type Props = {
   color: ColorType,
+  currentUser: any,
 }
 
 class Header extends Component<Props> {
   render () {
     return (
       <header>
-        <Navbar color={this.props.color} />
+        <Navbar color={this.props.color} currentUser={this.props.currentUser} />
       </header>
     );
   }

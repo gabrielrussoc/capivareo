@@ -5,12 +5,13 @@ import type { ColorType } from "../types"
 type Props = {
   text: string,
   color: ColorType,
+  onClick?: Function,
 };
 
 class Button extends Component<Props> {
   render () {
     return (
-      <button className={`waves-effect waves-light btn ${this.props.color}`}>{this.props.text}</button>
+      <button onClick={this.props.onClick} className={`waves-effect waves-light btn ${this.props.color}`}>{this.props.text}</button>
     );
   }
 }

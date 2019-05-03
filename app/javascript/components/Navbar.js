@@ -6,6 +6,7 @@ import type { ColorType } from '../types';
 
 type Props = {
   color: ColorType,
+  currentUser: any,
 }
 
 class Navbar extends Component<Props> {
@@ -14,7 +15,7 @@ class Navbar extends Component<Props> {
       <nav className={this.props.color}>
         <div className='nav-wrapper container'>
           <Logo />
-          <LoginArea />
+          <LoginArea currentUser={this.props.currentUser} />
         </div>
       </nav>
     );
