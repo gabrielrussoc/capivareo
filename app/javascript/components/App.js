@@ -45,7 +45,7 @@ class App extends Component<Props, State> {
   render () {
     return (
       <HashRouter>
-        <Header color='orange' currentUser={this.state.currentUser} />
+        <Header color='orange' currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
         <main>
           <div className="section no-pad-bot">
             <div className="container">

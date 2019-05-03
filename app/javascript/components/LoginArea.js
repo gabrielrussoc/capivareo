@@ -1,17 +1,27 @@
 // @flow
 import React, { Component } from "react"
 import {Link} from "react-router-dom"
+import axios from 'axios'
 
 type Props = {
   currentUser: any,
+  setCurrentUser: Function,
 };
 
 class LoginArea extends Component<Props> {
+
+  handleLogout = () => {
+    axios.delete('/users/sign_out.json', {}).then(() => {
+      this.props.setCurrentUser(null);
+    });
+  }
+
   render () {
     if (this.props.currentUser !== null)
       return (
       <ul id="nav-mobile" className="right hide-on-med-and-down">
-        <li>Olá, {this.props.currentUser.id}!</li>
+        <li><a>Olá, {this.props.currentUser.id}!</a></li>
+        <li><a onClick={this.handleLogout}>Sair</a></li>
       </ul>
       )
     return (
