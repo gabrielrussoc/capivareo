@@ -2,14 +2,15 @@
 import React, { Component } from "react"
 import Button from "./Button"
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 
 type Props = {
   setCurrentUser: Function;
-  history: any;
 };
 
 type State = {
-  invalidCredentials: boolean;
+  toHome: boolean,
+  invalidCredentials: boolean
 };
 
 class Login extends Component<Props, State> {
@@ -17,6 +18,7 @@ class Login extends Component<Props, State> {
   constructor () {
     super();
     this.state = {
+      toHome: false,
       invalidCredentials: false
     }
   }
@@ -36,15 +38,22 @@ class Login extends Component<Props, State> {
     }).then((res) => {
       const user = res.data;
       this.props.setCurrentUser(user);
-      this.props.history.push('/');
+      this.setState({
+        invalidCredentials: false,
+        toHome: true,
+      })
     }).catch((err) => {
       this.setState({
+        toHome: false,
         invalidCredentials: true
       })
     })
   }
 
   render () {
+    if (this.state.toHome) {
+      return <Redirect to="/" />
+    }
     return (
       <React.Fragment>
         <h2>Login</h2>

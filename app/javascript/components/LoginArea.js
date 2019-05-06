@@ -2,11 +2,16 @@
 import React, { Component } from "react"
 import {Link} from "react-router-dom"
 import axios from 'axios'
+import type { UserType } from '../types'
 
 type Props = {
-  currentUser: any,
+  currentUser: UserType,
   setCurrentUser: Function,
 };
+
+function primeiroNome(nome: string): string {
+  return nome.split(' ')[0]
+}
 
 class LoginArea extends Component<Props> {
 
@@ -20,7 +25,7 @@ class LoginArea extends Component<Props> {
     if (this.props.currentUser !== null)
       return (
       <ul id="nav-mobile" className="right hide-on-med-and-down">
-        <li><a>Olá, {this.props.currentUser.id}!</a></li>
+        <li><a>Olá, {primeiroNome(this.props.currentUser.nome)}!</a></li>
         <li><a onClick={this.handleLogout}>Sair</a></li>
       </ul>
       )

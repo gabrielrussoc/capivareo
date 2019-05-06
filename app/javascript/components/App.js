@@ -7,13 +7,14 @@ import Login from "./Login"
 import Signup from "./Signup"
 import { HashRouter, Route } from 'react-router-dom'
 import axios from 'axios'
+import type { UserType } from '../types'
 
 type Props = {
   csrfToken: string;
 };
 
 type State = {
-  currentUser: any;
+  currentUser: UserType;
 };
 
 class App extends Component<Props, State> {
