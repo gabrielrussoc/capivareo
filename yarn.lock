@@ -2820,10 +2820,10 @@ flow-bin@^0.97.0:
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.97.0.tgz#036ffcfc27503367a9d906ec9d843a0aa6f6bb83"
   integrity sha512-jXjD05gkatLuC4+e28frH1hZoRwr1iASP6oJr61Q64+kR4kmzaS+AdFBhYgoYS5kpoe4UzwDebWK8ETQFNh00w==
 
-flow-webpack-plugin@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/flow-webpack-plugin/-/flow-webpack-plugin-1.2.0.tgz#1958821d16135028e391cad5ee2f3a4fa78197ec"
-  integrity sha512-eBlH8qC2S1x9e/A2medm+MJesJAE2xdx+LwpKbImB6yUVi+lmyRUH67IWbBtY/S+PEoGR/kg+PWRCg9Bv17n8g==
+flow-webpack-next-plugin@^0.1.0-rc3:
+  version "0.1.0-rc3"
+  resolved "https://registry.yarnpkg.com/flow-webpack-next-plugin/-/flow-webpack-next-plugin-0.1.0-rc3.tgz#9427babde202a315dd64c32e4a25aa8d4fc49a27"
+  integrity sha512-JGNfSu2eVxcLDVfOlxTepxbA3DSW/baAXdj/i/IUjeZvSXgQNLzo59YSsVGRpPvi3Yvvkq4zaXMq52Sv92JEow==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"

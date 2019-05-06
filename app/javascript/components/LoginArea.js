@@ -17,6 +17,7 @@ class LoginArea extends Component<Props> {
 
   handleLogout = () => {
     axios.delete('/users/sign_out.json', {}).then(() => {
+      console.log('BRAULIO!!')
       this.props.setCurrentUser(null);
     });
   }

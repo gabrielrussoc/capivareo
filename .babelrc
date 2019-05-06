@@ -1,3 +1,11 @@
 {
-  "plugins": ["transform-flow-strip-types"]
+  "plugins": ["transform-flow-strip-types"],
+  "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "useBuiltIns": false
+            }
+        ]
+    ]
 }
