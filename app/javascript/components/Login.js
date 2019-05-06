@@ -49,8 +49,8 @@ class Login extends Component<Props, State> {
       <React.Fragment>
         <h2>Login</h2>
         <form onSubmit={this.handleLogin} >
-          <input type='email' name='email' placeholder='email'/>
-          <input type='password' name='password' placeholder='password'/>
+          <input type='email' name='email' placeholder='E-mail'/>
+          <input type='password' name='password' placeholder='Senha'/>
           <Button text='Entrar' color='orange' />
         </form>
      </React.Fragment>
