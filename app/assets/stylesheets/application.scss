@@ -13,3 +13,8 @@ main {
 .page-footer {
     padding: 0;
 }
+
+.checkbox-orange[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid #ff9800;
+    background-color: #ff9800;
+}

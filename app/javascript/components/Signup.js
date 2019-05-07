@@ -38,13 +38,15 @@ class Signup extends Component<Props, State> {
     const password = target.password.value;
     const nome = target.nome.value;
     const nusp = target.nusp.value;
+    const is_prof = target.is_prof.checked;
 
     axios.post('/users.json', {
       user: {
         nome: nome,
         nusp: nusp,
         email: email,
-        password: password
+        password: password,
+        is_prof: is_prof
       }
     }).then((res) => {
       const user = res.data;
@@ -77,6 +79,12 @@ class Signup extends Component<Props, State> {
           <input type='text' name='nusp' placeholder='Número USP'/>
           <input type='email' name='email' placeholder='E-mail'/>
           <input type='password' name='password' placeholder='Senha'/>
+          <div className='row'>
+          <label>
+            <input name='is_prof' type="checkbox" className='filled-in checkbox-orange' />
+            <span>Professor</span>
+          </label>
+          </div>
           <Button text='Enviar' color='orange' />
         </form>
      </React.Fragment>
