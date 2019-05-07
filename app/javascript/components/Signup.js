@@ -54,7 +54,7 @@ class Signup extends Component<Props, State> {
         <h2>Registrar</h2>
         <form onSubmit={this.handleSignup} >
           <input type='text' name='nome' placeholder='Nome'/>
-          <input type='number' name='nusp' placeholder='Número USP'/>
+          <input type='text' name='nusp' placeholder='Número USP'/>
           <input type='email' name='email' placeholder='E-mail'/>
           <input type='password' name='password' placeholder='Senha'/>
           <Button text='Enviar' color='orange' />
