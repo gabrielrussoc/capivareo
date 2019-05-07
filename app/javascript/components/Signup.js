@@ -3,11 +3,13 @@ import React, { Component } from "react"
 import Button from "./Button"
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import Alert from './Alert'
 
 type Props = {};
 
 type State = {
-  toLogin: boolean, 
+  toLogin: boolean,
+  errors: Object,
 };
 
 class Signup extends Component<Props, State> {
@@ -15,7 +17,8 @@ class Signup extends Component<Props, State> {
   constructor() {
     super();
     this.state = {
-      toLogin: false
+      toLogin: false,
+      errors: {},
     }
   }
 
@@ -37,11 +40,15 @@ class Signup extends Component<Props, State> {
       }
     }).then((res) => {
       this.setState({
-        toLogin: true
+        toLogin: true,
+        errors: {},
       });
     }).catch((err) => {
       // TODO: Tratar erros de registro
-      console.log(err.response);
+      this.setState({
+        toLogin: false,
+        errors: err.response.data.errors,
+      })
     })
   }
 
@@ -49,8 +56,12 @@ class Signup extends Component<Props, State> {
     if (this.state.toLogin) {
       return <Redirect to='/' />
     }
+    const errors = Object.entries(this.state.errors).map((err, idx) =>
+      <Alert key={idx} text={err.join(': ')} />
+    );
     return (
       <React.Fragment>
+        {errors}
         <h2>Registrar</h2>
         <form onSubmit={this.handleSignup} >
           <input type='text' name='nome' placeholder='Nome'/>
