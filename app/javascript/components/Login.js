@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import Button from "./Button"
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import Alert from "./Alert"
 
 type Props = {
   setCurrentUser: Function;
@@ -25,6 +26,12 @@ class Login extends Component<Props, State> {
 
   handleLogin = (event: any) => {
     event.preventDefault();
+
+    this.setState({
+      toHome: false,
+      invalidCredentials: false
+    });
+
     const target = event.target;
     const email = target.email.value;
     const password = target.password.value;
@@ -56,6 +63,7 @@ class Login extends Component<Props, State> {
     }
     return (
       <React.Fragment>
+        {this.state.invalidCredentials && <Alert text='E-mail ou senha inválidos.' />}
         <h2>Login</h2>
         <form onSubmit={this.handleLogin} >
           <input type='email' name='email' placeholder='E-mail'/>
