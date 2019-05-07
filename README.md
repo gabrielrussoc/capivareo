@@ -30,6 +30,8 @@ gem install bundler
 bundle install
 ```
 
+**ALERTA**: Vamos preceder diversos comandos com `bundle exec`, para garantir que as gemas corretas serão utilizadas.
+
 ## NodeJS
 
 O frontend da aplicação foi escrito em [React](https://reactjs.org/) e portanto tem algumas depedências em Javascript. [NodeJS](https://nodejs.org/en) numa versão `>= 10` é necessário.
@@ -51,8 +53,6 @@ Na raiz do projeto, basta rodar:
 yarn install
 ```
 
-Em tese, também é possível utilizar o gerenciador de pacotes `npm` (já é instalado junto com o node). Rodar `npm install` na raiz do projeto deveria ter o mesmo efeito. Não foi testado.
-
 ## Banco de dados
 
 O banco de dados utilizado no momento é o [SQLite3](https://www.sqlite.org/index.html), padrão em projetos rails.
@@ -71,7 +71,7 @@ Como SQLite3 é _serverless_, nenhuma configuração extra é necessária.
 Na raiz do projeto, basta rodar:
 
 ```
-rake db:create
+bundle exec rake db:create
 ```
 
 ### Migrações
@@ -79,7 +79,7 @@ rake db:create
 Conforme o esquema do banco vai sendo modificado, várias migrações são criadas `db/migrate`. Para aplicar todas as migrações, basta rodar na raiz do projeto:
 
 ```
-rake db:migrate
+bundle exec rake db:migrate
 ```
 
 ### Removendo o banco
@@ -87,7 +87,7 @@ rake db:migrate
 **USE COM MUITO CUIDADO, NÃO TEM VOLTA!** Se for necessário apagar completamente o banco, basta rodar na raiz do projeto:
 
 ```
-rake db:drop
+bundle exec rake db:drop
 ```
 
 Será necessário criar e migrar o banco novamente.
@@ -101,5 +101,3 @@ bundle exec rails s
 ```
 
 e verificar que tudo está funcionando acessando `localhost:3000`.
-
-**ALERTA**: É importante preceder o comando com `bundle exec`, para garantir que as gemas corretas serão utilizadas.
