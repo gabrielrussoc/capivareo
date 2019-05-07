@@ -26,6 +26,12 @@ class Signup extends Component<Props, State> {
 
   handleSignup = (event: any) => {
     event.preventDefault();
+
+    this.setState({
+        toLogin: false,
+        errors: {},
+      });
+
     const target = event.target;
 
     const email = target.email.value;
