@@ -54,7 +54,7 @@ class App extends Component<Props, State> {
               {/* A sintaxe diferente eh necessaria pois o componente Login tem
               algumas props. Passar a prop direto para o Route eh ignorado pelo React. */}
               <Route path="/login" render={(props) => <Login {...props} setCurrentUser={this.setCurrentUser} /> } />
-              <Route path="/signup" component={Signup} />
+              <Route path="/signup" render={(props) => <Signup {...props} setCurrentUser={this.setCurrentUser} /> } />
               {/* TODO: 404 page */}
             </div>
           </div>

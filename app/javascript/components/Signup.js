@@ -5,7 +5,9 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import Alert from './Alert'
 
-type Props = {};
+type Props = {
+  setCurrentUser: Function
+};
 
 type State = {
   toLogin: boolean,
@@ -39,12 +41,13 @@ class Signup extends Component<Props, State> {
         password: password
       }
     }).then((res) => {
+      const user = res.data;
+      this.props.setCurrentUser(user);
       this.setState({
         toLogin: true,
         errors: {},
       });
     }).catch((err) => {
-      // TODO: Tratar erros de registro
       this.setState({
         toLogin: false,
         errors: err.response.data.errors,
