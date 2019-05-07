@@ -24,7 +24,7 @@ class App extends Component<Props, State> {
     this.state = {
       currentUser: null
     }
-    axios.defaults.headers.common['X-CSRF-Token'] = props.csrfToken;
+    // axios.defaults.headers.common['X-CSRF-Token'] = props.csrfToken;
   }
 
   setCurrentUser = (user: any) => {
