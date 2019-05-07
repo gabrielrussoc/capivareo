@@ -1,12 +1,13 @@
 // @flow
 import React, { Component } from "react"
+import { Link } from "react-router-dom"
 
 type Props = {};
 
 class Logo extends Component<Props> {
   render () {
     return (
-      <a className="brand-logo">Capivareo</a>
+      <Link to='/' className="brand-logo">Capivareo</Link>
     );
   }
 }
