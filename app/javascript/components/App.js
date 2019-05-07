@@ -14,7 +14,7 @@ type Props = {
 };
 
 type State = {
-  currentUser: UserType;
+  currentUser?: UserType;
 };
 
 class App extends Component<Props, State> {
@@ -22,7 +22,7 @@ class App extends Component<Props, State> {
   constructor (props: Props) {
     super();
     this.state = {
-      currentUser: null
+      currentUser: undefined
     }
     // axios.defaults.headers.common['X-CSRF-Token'] = props.csrfToken;
   }

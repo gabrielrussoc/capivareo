@@ -2,11 +2,11 @@
 import React, { Component } from "react"
 import Logo from './Logo';
 import LoginArea from './LoginArea';
-import type { ColorType } from '../types';
+import type { ColorType, UserType } from '../types';
 
 type Props = {
   color: ColorType,
-  currentUser: any,
+  currentUser?: UserType,
   setCurrentUser: Function,
 }
 
