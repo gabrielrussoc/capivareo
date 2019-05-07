@@ -5,7 +5,7 @@ import type { ColorType, UserType } from '../types'
 
 type Props = {
   color: ColorType,
-  currentUser: UserType,
+  currentUser?: UserType,
   setCurrentUser: Function,
 }
 

@@ -5,7 +5,7 @@ import axios from 'axios'
 import type { UserType } from '../types'
 
 type Props = {
-  currentUser: UserType,
+  currentUser?: UserType,
   setCurrentUser: Function,
 };
 
@@ -22,6 +22,9 @@ class LoginArea extends Component<Props> {
   }
 
   render () {
+    if (this.props.currentUser === undefined)
+      return null;
+
     if (this.props.currentUser !== null)
       return (
       <ul id="nav-mobile" className="right hide-on-med-and-down">
