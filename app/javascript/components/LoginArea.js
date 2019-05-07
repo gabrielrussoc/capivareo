@@ -29,7 +29,7 @@ class LoginArea extends Component<Props> {
       return (
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><a>Olá, {primeiroNome(this.props.currentUser.nome)}!</a></li>
-        <li><a onClick={this.handleLogout}>Sair</a></li>
+        <li><Link to="/" onClick={this.handleLogout}>Sair</Link></li>
       </ul>
       )
     return (
