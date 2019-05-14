@@ -5,7 +5,7 @@ import Main from "./Main"
 import Footer from "./Footer"
 import Login from "./Login"
 import Signup from "./Signup"
-import { HashRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 import axios from 'axios'
 import type { UserType } from '../types'
 
@@ -45,7 +45,7 @@ class App extends Component<Props, State> {
 
   render () {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <Header color='orange' currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
         <main>
           <div className="section no-pad-bot">
@@ -60,7 +60,7 @@ class App extends Component<Props, State> {
           </div>
         </main>
         <Footer color='orange' />
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
