@@ -53,13 +53,15 @@ class App extends Component<Props, State> {
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
           <Navbar checkedLogin={this.state.checkedLogin} currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
-          <Route exact path="/" component={Main} />
-          {/* A sintaxe diferente eh necessaria pois o componente Login tem
-          algumas props. Passar a prop direto para o Route eh ignorado pelo React. */}
-          <Route path="/login" render={(props) => <Login {...props} setCurrentUser={this.setCurrentUser} /> } />
-          <Route path="/signup" render={(props) => <Signup {...props} setCurrentUser={this.setCurrentUser} /> } />
-          {/* TODO: 404 page */}
-          <Footer color='orange' />
+          <main>
+            <Route exact path="/" component={Main} />
+            {/* A sintaxe diferente eh necessaria pois o componente Login tem
+            algumas props. Passar a prop direto para o Route eh ignorado pelo React. */}
+            <Route path="/login" render={(props) => <Login {...props} setCurrentUser={this.setCurrentUser} /> } />
+            <Route path="/signup" render={(props) => <Signup {...props} setCurrentUser={this.setCurrentUser} /> } />
+            {/* TODO: 404 page */}
+          </main>
+          <Footer />
         </BrowserRouter>
       </MuiThemeProvider>
     );
