@@ -2,14 +2,14 @@
 import React, { Component } from "react"
 import Main from "./Main"
 import Navbar from './navbar'
-import Footer from "./Footer"
-import Login from "./Login"
-import Signup from "./Signup"
+import Footer from "./footer"
+import { Login, Signup } from "./auth"
 import { BrowserRouter, Route } from 'react-router-dom'
 import axios from 'axios'
 import type { UserType } from '../types'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import theme from '../theme'
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 type Props = {
   csrfToken: string;
@@ -51,6 +51,7 @@ class App extends Component<Props, State> {
   render () {
     return (
       <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <BrowserRouter>
           <Navbar checkedLogin={this.state.checkedLogin} currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
           <main>

@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from "react"
-import type { ColorType } from '../types'
 import Typography from '@material-ui/core/Typography'
 
 type Props = {
