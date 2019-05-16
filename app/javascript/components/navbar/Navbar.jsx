@@ -20,8 +20,8 @@ class Navbar extends Component<Props> {
     return (
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h4" style={{flexGrow: 1}} >
-            <Link to='/'>Capivareo</Link>
+          <Typography variant="h4" style={{flexGrow: 1, textDecoration:'none'}} component={Link} to='/' >
+            Capivareo
           </Typography>
           {this.props.checkedLogin &&
             (this.props.currentUser !== null

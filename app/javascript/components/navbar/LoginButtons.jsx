@@ -1,6 +1,6 @@
 // @flow
 import React, { Fragment } from "react"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import Button from '@material-ui/core/Button'
 
 type Props = {
