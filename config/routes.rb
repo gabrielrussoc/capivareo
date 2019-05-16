@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  match '*patch', to: 'pages#home', via: :all
+  resources :disciplinas
+  match '*patch', to: 'pages#home', via: :all #Essa linha tem que ser a ultima
 end
