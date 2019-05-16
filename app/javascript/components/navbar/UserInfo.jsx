@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import axios from 'axios'
 import type { UserType } from '../../types'
 import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
 type Props = {
   currentUser: UserType,
@@ -27,8 +28,10 @@ class UserInfo extends Component<Props> {
   render () {
       return (
         <Fragment>
-          Olá, {shortName(this.props.currentUser)}!
-          <Button onClick={this.handleLogout} component={Link} to="/">Sair</Button>
+          <Typography variant="h6">
+            Olá, {shortName(this.props.currentUser)}!
+            <Button onClick={this.handleLogout} component={Link} to="/">Sair</Button>
+          </Typography>
       </Fragment>
       )
   }
