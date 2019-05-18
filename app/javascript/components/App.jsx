@@ -16,7 +16,7 @@ type Props = {
 };
 
 type State = {
-  currentUser: UserType,
+  currentUser: ?UserType,
   checkedLogin: boolean,
 };
 
@@ -31,7 +31,7 @@ class App extends Component<Props, State> {
     // axios.defaults.headers.common['X-CSRF-Token'] = props.csrfToken;
   }
 
-  setCurrentUser = (user: UserType) => {
+  setCurrentUser = (user: ?UserType) => {
     this.setState({
       currentUser: user,
       checkedLogin: true,
@@ -55,7 +55,7 @@ class App extends Component<Props, State> {
         <BrowserRouter>
           <Navbar checkedLogin={this.state.checkedLogin} currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
           <main>
-            <Route exact path="/" component={Main} />
+            <Route exact path="/" render={(props) => <Main {...props} currentUser={this.state.currentUser} checkedLogin={this.state.checkedLogin} /> } />
             {/* A sintaxe diferente eh necessaria pois o componente Login tem
             algumas props. Passar a prop direto para o Route eh ignorado pelo React. */}
             <Route path="/login" render={(props) => <Login {...props} setCurrentUser={this.setCurrentUser} /> } />

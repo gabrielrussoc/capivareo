@@ -7,4 +7,11 @@ export type UserType = {
     nusp: number,
     email: string,
     is_prof: boolean,
-} | null;
+    id: number,
+};
+
+export type DisciplinaType = {
+    nome: string,
+    cod: string,
+    descr: string,
+};

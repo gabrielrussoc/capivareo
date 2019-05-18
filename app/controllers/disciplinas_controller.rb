@@ -1,8 +1,9 @@
 class DisciplinasController < ApplicationController
   before_action :authenticate_user!
   before_action :is_prof?
+  
   def index
-    render json: Disciplina.all
+    render json: Disciplina.where(:user_id => current_user.id)
   end
 
   def create

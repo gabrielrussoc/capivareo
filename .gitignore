@@ -39,3 +39,6 @@ yarn-debug.log*
 
 # OSX stuff
 .DS_Store
+
+# VS Code
+.vscode
