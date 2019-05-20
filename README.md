@@ -82,6 +82,14 @@ Conforme o esquema do banco vai sendo modificado, várias migrações são criad
 bundle exec rake db:migrate
 ```
 
+### Valores padrão
+
+Para facilitar o desenvolvimento, há uma semente com valores padrões para o banco em `db/seeds.rb`. Para aplicar, basta rodar:
+
+```
+bundle exec rake db:seed
+```
+
 ### Removendo o banco
 
 **USE COM MUITO CUIDADO, NÃO TEM VOLTA!** Se for necessário apagar completamente o banco, basta rodar na raiz do projeto:

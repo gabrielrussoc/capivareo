@@ -67,7 +67,7 @@ class DashProfessor extends Component<Props, State> {
     this.setState({
       didFetch: false,
     })
-    axios.get('/disciplinas')
+    axios.get('/mydisciplinas')
       .then((res) => {
         this.setState({
           disciplinas: res.data,

@@ -10,8 +10,18 @@ export type UserType = {
     id: number,
 };
 
-export type DisciplinaType = {
+export type DisciplinaType = {|
     nome: string,
     cod: string,
     descr: string,
+    semestre: Date,
+    id: number,
+|};
+
+export type DisciplinaProfType = {
+    ...DisciplinaType,
+    user: {
+        nome: string,
+    },
+    enrolled: ?boolean,
 };

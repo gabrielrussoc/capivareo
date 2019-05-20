@@ -6,6 +6,11 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  resources :disciplinas
+  get '/disciplinas', to: 'disciplinas#index'
+  get '/mydisciplinas', to: 'disciplinas#index_my'
+  post '/disciplinas', to: 'disciplinas#create'
+  post '/enroll', to: 'disciplinas#enroll'
+  delete '/enroll', to: 'disciplinas#disenroll'
+  
   match '*patch', to: 'pages#home', via: :all #Essa linha tem que ser a ultima
 end

@@ -1,8 +1,18 @@
 class DisciplinasController < ApplicationController
   before_action :authenticate_user!
-  before_action :is_prof?
+  before_action :is_prof?, only: [:create, :index_my]
+  before_action :is_aluno?, only: [:enroll, :index]
   
   def index
+    render json: 
+      Disciplina
+      .where(semestre: params[:semestre])
+      .select('disciplinas.*, (SELECT 1 FROM disciplinas_users WHERE user_id = ' + current_user.id.to_s + ' AND disciplina_id = id) AS enrolled')
+      .includes(:user)
+      .as_json(include: { user: { only: :nome }})
+  end
+
+  def index_my
     render json: Disciplina.where(:user_id => current_user.id)
   end
 
@@ -11,6 +21,17 @@ class DisciplinasController < ApplicationController
     disc.save!
 
     render json: disc
+  end
+
+  def enroll
+    user = User.find(current_user.id)
+    disciplina = Disciplina.find(params[:disciplina_id])
+    user.disciplinas << disciplina
+    render json: {}
+  end
+
+  def disenroll
+    User.find(current_user.id).destroy([:disciplina_id])
   end
 
   def show
@@ -27,6 +48,12 @@ class DisciplinasController < ApplicationController
 
   def is_prof?
     unless current_user.is_prof
+      render json: {"error": "Você não tem permissão!"}, status: :forbidden
+    end
+  end
+
+  def is_aluno?
+    unless !current_user.is_prof
       render json: {"error": "Você não tem permissão!"}, status: :forbidden
     end
   end

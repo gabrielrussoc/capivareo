@@ -35,7 +35,7 @@ class CreateDisciplina extends Component<Props, State> {
   constructor() {
     super();
     this.state = {
-      semestre: new Date(),
+      semestre: semestres[0],
     }
   }
 

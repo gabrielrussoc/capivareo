@@ -3,6 +3,7 @@
 const maxSemestres = 4;
 
 const normalize = (date: Date) => {
+  
   return new Date(date.getFullYear(), ~~(date.getMonth()/6), 1);
 };
 
