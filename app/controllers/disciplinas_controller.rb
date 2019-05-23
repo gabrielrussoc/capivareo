@@ -35,6 +35,7 @@ class DisciplinasController < ApplicationController
   end
 
   def show
+    render json: Disciplina.find(params[:id])
   end
 
   def destroy

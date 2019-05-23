@@ -10,15 +10,28 @@ import type { UserType } from '../types'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import theme from '../theme'
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Disciplina } from './dash';
+import { withStyles } from '@material-ui/core/styles';
 
 type Props = {
-  csrfToken: string;
+  csrfToken: string,
+  classes: Object,
 };
 
 type State = {
   currentUser: ?UserType,
   checkedLogin: boolean,
 };
+
+const styles = theme => ({
+  main: {
+    [theme.breakpoints.up("lg")]: {
+      width: 1170
+    },
+    padding: 2 * theme.spacing.unit,
+    margin: '0 auto',
+  },
+});
 
 class App extends Component<Props, State> {
 
@@ -54,12 +67,13 @@ class App extends Component<Props, State> {
         <CssBaseline />
         <BrowserRouter>
           <Navbar checkedLogin={this.state.checkedLogin} currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
-          <main>
+          <main className={this.props.classes.main}>
             <Route exact path="/" render={(props) => <Main {...props} currentUser={this.state.currentUser} checkedLogin={this.state.checkedLogin} /> } />
             {/* A sintaxe diferente eh necessaria pois o componente Login tem
             algumas props. Passar a prop direto para o Route eh ignorado pelo React. */}
             <Route path="/login" render={(props) => <Login {...props} setCurrentUser={this.setCurrentUser} /> } />
             <Route path="/signup" render={(props) => <Signup {...props} setCurrentUser={this.setCurrentUser} /> } />
+            <Route path="/disciplinas/:id" render={(props) => <Disciplina {...props} currentUser={this.state.currentUser} /> } />
             {/* TODO: 404 page */}
           </main>
           <Footer />
@@ -69,4 +83,4 @@ class App extends Component<Props, State> {
   }
 }
 
-export default App
+export default withStyles(styles)(App);

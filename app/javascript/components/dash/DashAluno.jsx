@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from "react"
+import { Link } from "react-router-dom"
 
 import SearchDisciplina from './SearchDisciplina';
 
@@ -17,6 +18,9 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
 
 import semestres from '../../semestres';
 import type { DisciplinaProfType } from '../../types';
@@ -40,10 +44,8 @@ const styles = theme => ({
     flexGrow: 1,
     alignContent: 'center'
   },
-  paper: {
-    padding: theme.spacing.unit * 2,
+  card: {
     textAlign: 'center',
-    color: theme.palette.text.secondary,
   },
   button: {
     margin: 2 * theme.spacing.unit,
@@ -134,6 +136,24 @@ class DashAluno extends Component<Props, State> {
     const semestresItens = semestres.map((sem, idx) => 
       <MenuItem key={idx} value={sem}>{sem.getFullYear()}-{(~~(sem.getMonth()/6)) + 1}</MenuItem>
     );
+    const disciplinasGrid = this.state.disciplinas
+      .filter(dis => dis.enrolled)
+      .map((dis, idx) =>
+          <Grid item xs={6} key={idx}>
+            <Card className={classes.card}>
+              <CardActionArea component={Link} to={`/disciplinas/${dis.id}`}>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {dis.cod} {dis.nome}
+                  </Typography>
+                  <Typography component="p">
+                    {dis.user.nome}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+      );
     return (
       <div className={classes.root}>
         <SearchDisciplina 
@@ -180,11 +200,7 @@ class DashAluno extends Component<Props, State> {
               label="Visão geral"
             />
           </Grid>
-
-          <Grid item xs={6}>
-            <Paper className={classes.paper}>x</Paper>
-          </Grid>
-          
+          {disciplinasGrid}
         </Grid>
       </div>
     );

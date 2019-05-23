@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   get '/disciplinas', to: 'disciplinas#index'
+  get '/disciplina', to: 'disciplinas#show'
   get '/mydisciplinas', to: 'disciplinas#index_my'
   post '/disciplinas', to: 'disciplinas#create'
   post '/enroll', to: 'disciplinas#enroll'

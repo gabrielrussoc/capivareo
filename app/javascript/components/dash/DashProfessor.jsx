@@ -5,6 +5,8 @@ import CreateDisciplina from './CreateDisciplina';
 
 import type { UserType, DisciplinaType } from '../../types';
 
+import { Link } from 'react-router-dom';
+
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -139,6 +141,7 @@ class DashProfessor extends Component<Props, State> {
           <Typography>
             {dis.descr}
           </Typography>
+          <Link to={`/disciplinas/${dis.id}`}>Ver mais</Link>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     );

@@ -37,6 +37,7 @@ Disciplina.create({
   id: 1,
   cod: 'MAC0123',
   nome: 'Introdução ao Ruby',
+  descr: 'Curso introdutório da linguagem de programação Ruby',
   semestre: '2019-01-01 02:00:00',
   user_id: 3
 })
@@ -45,6 +46,7 @@ Disciplina.create({
   id: 2,
   cod: 'MAC0321',
   nome: 'Testes de software I',
+  descr: 'Testes de unidade, testes de integração, frameworks de teste',
   semestre: '2018-07-01 03:00:00',
   user_id: 2
 })
@@ -53,6 +55,7 @@ Disciplina.create({
   id: 3,
   cod: 'MAC0322',
   nome: 'Testes de software II',
+  descr: 'Testes da aplicação como um todo, testes de aceitação',
   semestre: '2019-01-01 02:00:00',
   user_id: 2
 })
