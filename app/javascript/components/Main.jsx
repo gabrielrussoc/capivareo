@@ -5,7 +5,7 @@ import smart from '../../assets/images/smart.png'
 
 import type { UserType } from '../types';
 
-import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 
 import { DashAluno, DashProfessor } from './dash';
@@ -17,7 +17,7 @@ type Props = {
 };
 
 const styles = theme => ({
-  logo: {
+  center: {
     margin: '0 auto',
     display: 'block',
   },
@@ -25,14 +25,15 @@ const styles = theme => ({
 
 class Main extends Component<Props> {
   render () {
-    const { classes, currentUser }  = this.props;
+    const { classes, currentUser, checkedLogin }  = this.props;
+    if (!checkedLogin)
+      return <CircularProgress className={classes.center} />
     return (
-      this.props.checkedLogin && 
-      currentUser
+      (currentUser
       ? currentUser.is_prof
         ? <DashProfessor currentUser={currentUser} />
         : <DashAluno currentUser={currentUser} />
-      : <img src={smart} className={classes.logo} />
+      : <img src={smart} className={classes.center} />)
     );
   }
 }

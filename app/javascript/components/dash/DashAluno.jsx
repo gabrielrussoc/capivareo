@@ -195,6 +195,7 @@ class DashAluno extends Component<Props, State> {
                   checked={this.state.quickView}
                   onChange={this.handleQuickView}
                   value="quickView"
+                  disabled
                 />
               }
               label="Visão geral"
