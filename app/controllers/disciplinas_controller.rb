@@ -13,7 +13,8 @@ class DisciplinasController < ApplicationController
   end
 
   def index_my
-    render json: Disciplina.where(:user_id => current_user.id)
+    render json: 
+      Disciplina.where(user_id: current_user.id, semestre: params[:semestre])
   end
 
   def create

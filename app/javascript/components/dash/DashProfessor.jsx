@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from "react"
 
 import CreateDisciplina from './CreateDisciplina';
+import semestres from '../../semestres';
 
 import type { UserType, DisciplinaType } from '../../types';
 
@@ -9,13 +10,18 @@ import { Link } from 'react-router-dom';
 
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Input from '@material-ui/core/Input';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
 
 import axios from 'axios';
 
@@ -28,6 +34,7 @@ type State = {
   disciplinas: Array<DisciplinaType>,
   didFetch: boolean,
   newDisciplina: boolean,
+  semestre: Date,
 };
 
 const styles = theme => ({
@@ -52,6 +59,9 @@ const styles = theme => ({
   rightIcon: {
     marginLeft: theme.spacing.unit,
   },
+  card: {
+    textAlign: 'center',
+  },
 });
 
 class DashProfessor extends Component<Props, State> {
@@ -62,6 +72,7 @@ class DashProfessor extends Component<Props, State> {
       disciplinas: [],
       didFetch: false,
       newDisciplina: false,
+      semestre: semestres[0],
     }
   };
 
@@ -69,8 +80,11 @@ class DashProfessor extends Component<Props, State> {
     this.setState({
       didFetch: false,
     })
-    axios.get('/mydisciplinas')
-      .then((res) => {
+    axios.get('/mydisciplinas', {
+      params: {
+        semestre: this.state.semestre
+      }
+    }).then((res) => {
         this.setState({
           disciplinas: res.data,
           didFetch: true,
@@ -85,6 +99,11 @@ class DashProfessor extends Component<Props, State> {
   componentDidMount = () => {
     this.listDisciplinas();
   }
+
+  componentDidUpdate = (prevProps: Props, prevState: State) => {
+    if (prevState.semestre !== this.state.semestre)
+      this.listDisciplinas();
+  } 
 
   handleCancelDisciplina = () => {
     this.setState({
@@ -126,42 +145,76 @@ class DashProfessor extends Component<Props, State> {
     });
   }
 
+  handleSemestre = (event: any) => {
+    this.setState({
+      semestre: event.target.value,
+    })
+  }
+
   render () {
-    if (!this.state.didFetch) {
-      return <CircularProgress />;
-    }
     const { classes } = this.props;
 
-    const disciplinas = this.state.disciplinas.map((dis, idx) =>
-      <ExpansionPanel key={idx}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>{dis.cod} - {dis.nome}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            {dis.descr}
-          </Typography>
-          <Link to={`/disciplinas/${dis.id}`}>Ver mais</Link>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+    const disciplinasGrid = this.state.disciplinas
+    .map((dis, idx) =>
+        <Grid item xs={6} key={idx}>
+          <Card className={classes.card}>
+            <CardActionArea component={Link} to={`/disciplinas/${dis.id}`}>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {dis.cod} {dis.nome}
+                </Typography>
+                <Typography component="p">
+                  {dis.descr}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+    );
+
+    const semestresItens = semestres.map((sem, idx) => 
+      <MenuItem key={idx} value={sem}>{sem.getFullYear()}-{(~~(sem.getMonth()/6)) + 1}</MenuItem>
     );
 
     return (
       <Fragment>
-        <Button onClick={this.handleClickAdd} variant="contained" color="primary" className={classes.button}>
-          Nova disciplina
-          <AddIcon className={classes.rightIcon} />
-        </Button>
+        <CreateDisciplina 
+          open={this.state.newDisciplina} 
+          handleCancelDisciplina={this.handleCancelDisciplina}
+          handleNewDisciplina={this.handleNewDisciplina}
+        />
 
-        <div className={classes.root}>
-          <CreateDisciplina 
-            open={this.state.newDisciplina} 
-            handleCancelDisciplina={this.handleCancelDisciplina}
-            handleNewDisciplina={this.handleNewDisciplina}
-          />
-          {disciplinas}
-          {/* TODO: handle empty array */}
-        </div>
+        
+        <Grid container spacing={24}>
+
+          <Grid item lg={12}>
+            <Typography variant='h2'>Minhas disciplinas</Typography>
+          </Grid>
+
+          <Grid item lg={10}>
+            <Button onClick={this.handleClickAdd} variant="contained" color="primary" >
+              Nova disciplina
+              <AddIcon className={classes.rightIcon} />
+            </Button>
+          </Grid>
+          <Grid item lg={2}>
+            <FormControl fullWidth>
+              <InputLabel htmlFor="semestre">Semestre</InputLabel>
+              <Select
+                value={this.state.semestre}
+                onChange={this.handleSemestre}
+                input={<Input name="semestre" id="semestre" />}
+              >
+                {semestresItens}
+              </Select>
+            </FormControl>
+          </Grid>
+
+            {!this.state.didFetch
+              ? <CircularProgress />
+              : disciplinasGrid
+            }
+        </Grid>
       </Fragment>
     );
   }
