@@ -28,7 +28,7 @@ class UserInfo extends Component<Props> {
   render () {
       return (
         <Fragment>
-          <Typography variant="h6">
+          <Typography variant="button">
             Olá, {shortName(this.props.currentUser)}!
             <Button onClick={this.handleLogout} component={Link} to="/">Sair</Button>
           </Typography>
