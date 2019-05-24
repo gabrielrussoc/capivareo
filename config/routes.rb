@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   post '/enroll', to: 'disciplinas#enroll'
   delete '/enroll', to: 'disciplinas#disenroll'
 
+  get '/atividades', to: 'atividades#index'
   post '/atividades', to: 'atividades#create'
+  get '/atividade', to: 'atividades#show'
   
   match '*patch', to: 'pages#home', via: :all #Essa linha tem que ser a ultima
 end

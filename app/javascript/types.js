@@ -25,3 +25,9 @@ export type DisciplinaProfType = {
     },
     enrolled: ?boolean,
 };
+
+export type AtividadeType = {|
+    id: number,
+    nome: string,
+    desc: string,
+|};

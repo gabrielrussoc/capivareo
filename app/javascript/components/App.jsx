@@ -10,7 +10,7 @@ import type { UserType } from '../types'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import theme from '../theme'
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Disciplina } from './dash';
+import { Disciplina, Atividade } from './dash';
 import { withStyles } from '@material-ui/core/styles';
 
 type Props = {
@@ -74,6 +74,7 @@ class App extends Component<Props, State> {
             <Route path="/login" render={(props) => <Login {...props} setCurrentUser={this.setCurrentUser} /> } />
             <Route path="/signup" render={(props) => <Signup {...props} setCurrentUser={this.setCurrentUser} /> } />
             <Route path="/disciplinas/:id" render={(props) => <Disciplina {...props} currentUser={this.state.currentUser} /> } />
+            <Route path="/atividades/:id" render={(props) => <Atividade {...props} currentUser={this.state.currentUser} /> } />
             {/* TODO: 404 page */}
           </main>
           <Footer />

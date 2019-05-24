@@ -52,7 +52,7 @@ class CreateAtividade extends Component<Props, State> {
         disciplina_id: this.props.dis_id,
       }
     }).then((res) => {
-      this.props.handleClose();
+      this.props.handleClose(true);
     }).catch((err) => {
       console.log(err);
       // TODO: handle errors
@@ -63,7 +63,7 @@ class CreateAtividade extends Component<Props, State> {
     return (
       <Dialog
           open={this.props.open}
-          onClose={this.props.handleClose}
+          onClose={() => this.props.handleClose(false)}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Nova atividade</DialogTitle>
@@ -94,7 +94,7 @@ class CreateAtividade extends Component<Props, State> {
 
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.props.handleClose} color="primary">
+              <Button onClick={() => this.props.handleClose(false)} color="primary">
                 Cancelar
               </Button>
               <Button type="submit" color="primary">

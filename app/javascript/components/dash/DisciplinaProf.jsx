@@ -1,10 +1,11 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
+import { Link } from "react-router-dom"
 
 import axios from 'axios';
 
-import type { DisciplinaType } from '../../types';
+import type { DisciplinaType, AtividadeType } from '../../types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -14,6 +15,9 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
 
 import CreateAtividade from './CreateAtividade';
 import EditDisciplina from './EditDisciplina';
@@ -26,6 +30,7 @@ type Props = {
 
 type State = {
   dis: ?DisciplinaType,
+  atividades: Array<AtividadeType>,
   createAtividade: boolean,
   editDisciplina: boolean,
   removeDisciplina: boolean,
@@ -38,6 +43,9 @@ const styles = theme => ({
   rightIcon: {
     marginLeft: theme.spacing.unit,
   },
+  card: {
+    textAlign: 'center',
+  }
 });
 
 class DisciplinaProf extends Component<Props, State> {
@@ -49,7 +57,23 @@ class DisciplinaProf extends Component<Props, State> {
       createAtividade: false,
       editDisciplina: false,
       removeDisciplina: false,
+      atividades: [],
     }
+  }
+
+  fetchAtividades = () => {
+    axios.get('/atividades', {
+      params: {
+        dis_id: this.props.id,
+      }
+    }).then(res => {
+      this.setState({
+        atividades: res.data,
+      })
+    }).catch(err => {
+      console.log(err);
+      // TODO: handle errors
+    })
   }
 
   fetchDisciplina = () => {
@@ -71,12 +95,15 @@ class DisciplinaProf extends Component<Props, State> {
 
   componentDidMount = () => {
     this.fetchDisciplina();
+    this.fetchAtividades();
   }
 
-  handleCancelCreateAtividade = () => {
+  handleCancelCreateAtividade = (didCreate: boolean) => {
     this.setState({
       createAtividade: false,
     })
+    if (didCreate)
+      this.fetchAtividades();
   }
 
   handleCancelEditDisciplina = (didEdit: boolean) => {
@@ -94,11 +121,31 @@ class DisciplinaProf extends Component<Props, State> {
   }
 
   render() {
-    if (!this.state.dis) {
+    if (!this.state.dis || !this.state.atividades) {
       return <CircularProgress />
     }
     const { classes } = this.props;
     const { dis } = this.state;
+
+    const atividadesGrid = this.state.atividades
+      .map((at, idx) =>
+          <Grid item xs={6} key={idx}>
+            <Card className={classes.card}>
+              <CardActionArea component={Link} to={`/atividades/${at.id}`}>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {at.nome}
+                  </Typography>
+                  <Typography component="p">
+                    {at.desc}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+          // TODO: extrair para o grid um componente para reutilizar
+      );
+
     return (
       <Fragment>
         <CreateAtividade 
@@ -107,21 +154,24 @@ class DisciplinaProf extends Component<Props, State> {
           handleClose={this.handleCancelCreateAtividade} 
         />
         <EditDisciplina
-          dis={this.state.dis}
+          dis={dis}
           open={this.state.editDisciplina}
           handleClose={this.handleCancelEditDisciplina}
         />
         <RemoveDisciplina
-          dis={this.state.dis}
+          dis={dis}
           open={this.state.removeDisciplina}
           handleClose={this.handleCancelRemoveDisciplina}
         />
 
-        <Grid container>
+        <Grid container spacing={24}>
+
+          {/* TITULO */}
           <Grid item lg={12}>
             <Typography variant='h2'>{dis.cod} {dis.nome}</Typography>
           </Grid>
 
+           {/* BOTOES */}
           <Grid item lg={12}>
             <Button onClick={() => { this.setState({ createAtividade: true }) }} variant="contained" color="primary" className={classes.button}>
               Nova atividade
@@ -139,6 +189,8 @@ class DisciplinaProf extends Component<Props, State> {
             </Button>
           </Grid>
 
+          {/* ATIVIDADES */}
+          {atividadesGrid}
 
         </Grid>
       </Fragment>

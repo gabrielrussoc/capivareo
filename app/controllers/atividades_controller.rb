@@ -1,5 +1,7 @@
 class AtividadesController < ApplicationController
   before_action :authenticate_user!
+  # validar aluno e professor
+  # validar nome e descricao
 
   def index
     atividades = Disciplina.find(params[:dis_id]).atividades
@@ -13,6 +15,15 @@ class AtividadesController < ApplicationController
   end
 
   def show
+    at = Atividade.find(params[:id])
+    dis = at.disciplina
+    alunos = dis.users
+    render json: 
+      { 
+        atividade: at, 
+        disciplina: dis,
+        alunos: alunos
+      }
   end
 
   def edit
