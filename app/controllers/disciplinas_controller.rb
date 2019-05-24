@@ -1,7 +1,7 @@
 class DisciplinasController < ApplicationController
   before_action :authenticate_user!
-  before_action :is_prof?, only: [:create, :index_my]
-  before_action :is_aluno?, only: [:enroll, :index]
+  before_action :is_prof?, only: [:create, :index_my, :destroy, :update]
+  before_action :is_aluno?, only: [:enroll, :disenroll, :index]
   
   def index
     render json: 
@@ -38,7 +38,15 @@ class DisciplinasController < ApplicationController
     render json: Disciplina.find(params[:id])
   end
 
+  def update
+    disciplina = Disciplina.find(params[:disciplina][:id])
+    if disciplina.update(disciplina_params)
+      render json: disciplina
+    end
+  end
+
   def destroy
+    Disciplina.find(params[:id]).destroy
   end
 
   private

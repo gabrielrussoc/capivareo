@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_19_175346) do
+ActiveRecord::Schema.define(version: 2019_05_23_234237) do
+
+  create_table "atividades", force: :cascade do |t|
+    t.string "nome"
+    t.text "desc"
+    t.integer "disciplina_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["disciplina_id"], name: "index_atividades_on_disciplina_id"
+  end
 
   create_table "disciplinas", force: :cascade do |t|
     t.string "cod"
@@ -28,6 +37,16 @@ ActiveRecord::Schema.define(version: 2019_05_19_175346) do
     t.integer "disciplina_id"
     t.index ["disciplina_id"], name: "index_disciplinas_users_on_disciplina_id"
     t.index ["user_id"], name: "index_disciplinas_users_on_user_id"
+  end
+
+  create_table "nota", force: :cascade do |t|
+    t.integer "nota"
+    t.integer "atividade_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["atividade_id"], name: "index_nota_on_atividade_id"
+    t.index ["user_id"], name: "index_nota_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
