@@ -109,3 +109,31 @@ bundle exec rails s
 ```
 
 e verificar que tudo está funcionando acessando `localhost:3000`.
+
+# Usando o sistema
+
+O sistema é muito simples de ser utilizado. É necessário fazer login para ter acesso as funcionalidades. Há duas interfaces: uma para alunos e outra para professores. Descrevemos brevemente as funcionalidades de cada um.
+
+## Alunos
+
+Alunos podem se matricular em disciplinas e ver as notas de suas atividades. Há um aluno padrão no banco (supondo que se rodou `rake db:seed`).
+
+```
+email: aluno@a.com
+senha: 123456
+```
+
+Na página inicial, é possível se matricular em novas disciplinas pelo botão `Adicionar disciplinas`. Para ver as notas das atividades de uma disciplina, basta clicar no seu cartão correspondente. As disciplinas ficam separadas por semestres, que pode ser escolhido na página inicial.
+
+## Professores
+
+Professores podem criar, editar e remover disciplinas. Dentro de cada disciplina, podem criar, editar e remover atividades, além de dar notas para cada aluno. Há um professor padrão no banco (supondo que se rodou `rake db:seed`).
+
+```
+email: prof@a.com
+senha: 123456
+```
+
+Uma disciplina é criada na página inicial no botão `Nova disciplina`. As disciplinas são separadas por semestres, que pode ser escolhido na página inicial. Para editar, remover ou gerenciar as atividades de uma disciplina, basta clicar no seu cartão correspondente.
+
+Uma atividade pode ser criada pelo botão `Nova atividade` na página de uma disciplina. Para editar ou remover uma atividade, basta clicar no cartão da atividade na página da disciplina correspondente. Há um modo de correção na página atividade, que destrava os campos Nota de todos os alunos matriculados. Para que as alterações da correção tenham efeito, é necessário clicar no botão `Salvar correção`. Se um aluno não aparece na lista, é porque não se matriculou na disciplina. 
