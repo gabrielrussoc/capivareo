@@ -31,3 +31,15 @@ export type AtividadeType = {|
     nome: string,
     desc: string,
 |};
+
+export type NotaType = {|
+    id: number,
+    nota: number,
+    user_id: number,
+    atividade_id: number,
+|};
+
+export type AtividadeNotaType = {|
+    ...AtividadeType,
+    nota: number,
+|};

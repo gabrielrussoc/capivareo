@@ -15,9 +15,11 @@ type Props = {
 const Disciplina = (props: Props) => {
   const id = props.match.params.id;
   return (
-    props.currentUser && props.currentUser.is_prof
-    ? <DisciplinaProf id={id} />
-    : <DisciplinaAluno id={id} />
+    props.currentUser && 
+    (props.currentUser.is_prof
+      ? <DisciplinaProf id={id} />
+      : <DisciplinaAluno dis_id={id} aluno_id={props.currentUser.id} />
+    )
   );
 };
 

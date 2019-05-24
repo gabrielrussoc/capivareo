@@ -18,15 +18,25 @@ class AtividadesController < ApplicationController
     at = Atividade.find(params[:id])
     dis = at.disciplina
     alunos = dis.users
+    notas = at.notas
     render json: 
       { 
         atividade: at, 
         disciplina: dis,
-        alunos: alunos
+        alunos: alunos,
+        notas: notas
       }
   end
 
-  def edit
+  def update
+    atividade = Atividade.find(params[:atividade][:id])
+    if atividade.update(atividade_params)
+      render json: atividade
+    end
+  end
+
+  def destroy
+    Atividade.find(params[:id]).destroy
   end
 
   private

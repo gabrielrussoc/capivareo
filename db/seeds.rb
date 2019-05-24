@@ -33,6 +33,15 @@ User.create({
   is_prof: true,
 })
 
+User.create({
+  id: 4,
+  nome: 'Luis',
+  nusp: '5657',
+  email: 'luis@a.com',
+  password: '123456',
+  is_prof: false,
+})
+
 Disciplina.create({
   id: 1,
   cod: 'MAC0123',
@@ -60,6 +69,30 @@ Disciplina.create({
   user_id: 2
 })
 
+Atividade.create({
+  id: 1,
+  nome: 'EP1',
+  desc: 'Primeiro exercício programa',
+  disciplina_id: 3
+})
+
+Atividade.create({
+  id: 2,
+  nome: 'EP2',
+  desc: 'Segundo exercício programa',
+  disciplina_id: 3
+})
+
+Atividade.create({
+  id: 3,
+  nome: 'P1',
+  desc: 'Primeira prova',
+  disciplina_id: 1
+})
+
 # Matriculando Thiago em Testes de software II
 User.find(1).disciplinas << Disciplina.find(3);
+
+# Matriculando Luis em Testes de software II
+User.find(4).disciplinas << Disciplina.find(3);
 
