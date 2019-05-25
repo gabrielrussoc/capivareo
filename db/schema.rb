@@ -12,10 +12,13 @@
 
 ActiveRecord::Schema.define(version: 2019_05_23_234237) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "atividades", force: :cascade do |t|
     t.string "nome"
     t.text "desc"
-    t.integer "disciplina_id"
+    t.bigint "disciplina_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["disciplina_id"], name: "index_atividades_on_disciplina_id"
@@ -28,21 +31,21 @@ ActiveRecord::Schema.define(version: 2019_05_23_234237) do
     t.datetime "semestre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_disciplinas_on_user_id"
   end
 
   create_table "disciplinas_users", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "disciplina_id"
+    t.bigint "user_id"
+    t.bigint "disciplina_id"
     t.index ["disciplina_id"], name: "index_disciplinas_users_on_disciplina_id"
     t.index ["user_id"], name: "index_disciplinas_users_on_user_id"
   end
 
   create_table "nota", force: :cascade do |t|
     t.integer "nota"
-    t.integer "atividade_id"
-    t.integer "user_id"
+    t.bigint "atividade_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["atividade_id"], name: "index_nota_on_atividade_id"
@@ -65,4 +68,10 @@ ActiveRecord::Schema.define(version: 2019_05_23_234237) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "atividades", "disciplinas"
+  add_foreign_key "disciplinas", "users"
+  add_foreign_key "disciplinas_users", "disciplinas"
+  add_foreign_key "disciplinas_users", "users"
+  add_foreign_key "nota", "atividades"
+  add_foreign_key "nota", "users"
 end
