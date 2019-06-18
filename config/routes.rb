@@ -26,5 +26,5 @@ Rails.application.routes.draw do
   get '/notas', to: 'notas#index'
   get '/notas/quick', to: 'notas#quick_view'
 
-  match '*patch', to: 'pages#home', via: :all #Essa linha tem que ser a ultima
+  # match '*patch', to: 'pages#home', via: :all #Essa linha tem que ser a ultima
 end
