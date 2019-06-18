@@ -4,7 +4,7 @@ import Main from "./Main"
 import Navbar from './navbar'
 import Footer from "./footer"
 import { Login, Signup } from "./auth"
-import { BrowserRouter, Route } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 import axios from 'axios'
 import type { UserType } from '../types'
 import { MuiThemeProvider } from '@material-ui/core/styles'
@@ -65,7 +65,7 @@ class App extends Component<Props, State> {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <BrowserRouter>
+        <HashRouter>
           <Navbar checkedLogin={this.state.checkedLogin} currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
           <main className={this.props.classes.main}>
             <Route exact path="/" render={(props) => <Main {...props} currentUser={this.state.currentUser} checkedLogin={this.state.checkedLogin} /> } />
@@ -78,7 +78,7 @@ class App extends Component<Props, State> {
             {/* TODO: 404 page */}
           </main>
           <Footer />
-        </BrowserRouter>
+        </HashRouter>
       </MuiThemeProvider>
     );
   }
