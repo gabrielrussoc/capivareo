@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 
 import SearchDisciplina from './SearchDisciplina';
+import QuickView from './QuickView';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
@@ -165,7 +166,7 @@ class DashAluno extends Component<Props, State> {
         />
         <Typography variant='h2'>Minhas disciplinas</Typography>
         
-        <Grid container spacing={24}>
+        <Grid container spacing={24} justify='center'>
           
           <Grid item xs={8}>
             <Button onClick={this.handleAddDisciplina} variant="contained" color="primary" className={classes.button}>
@@ -195,13 +196,12 @@ class DashAluno extends Component<Props, State> {
                   checked={this.state.quickView}
                   onChange={this.handleQuickView}
                   value="quickView"
-                  disabled
                 />
               }
               label="Visão geral"
             />
           </Grid>
-          {disciplinasGrid}
+          {this.state.quickView ? <QuickView semestre={this.state.semestre }/> :  disciplinasGrid}
         </Grid>
       </div>
     );

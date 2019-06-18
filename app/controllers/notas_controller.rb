@@ -2,6 +2,17 @@ class NotasController < ApplicationController
   before_action :authenticate_user!
   # TODO: validacoes
 
+  def quick_view
+    render json:
+      Nota
+        .where(user_id: current_user.id)
+        .includes(atividade: :disciplina)
+        .joins(atividade: :disciplina)
+        .where(disciplinas: { semestre: params[:semestre] })
+        .map{ |nota| nota.as_json(include: { atividade: { include: :disciplina } } ) }
+        .as_json
+  end
+
   def index
     dis_id = params[:dis_id]
     user_id = params[:aluno_id]
