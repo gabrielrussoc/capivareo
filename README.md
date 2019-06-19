@@ -137,3 +137,7 @@ senha: 123456
 Uma disciplina é criada na página inicial no botão `Nova disciplina`. As disciplinas são separadas por semestres, que pode ser escolhido na página inicial. Para editar, remover ou gerenciar as atividades de uma disciplina, basta clicar no seu cartão correspondente.
 
 Uma atividade pode ser criada pelo botão `Nova atividade` na página de uma disciplina. Para editar ou remover uma atividade, basta clicar no cartão da atividade na página da disciplina correspondente. Há um modo de correção na página atividade, que destrava os campos Nota de todos os alunos matriculados. Para que as alterações da correção tenham efeito, é necessário clicar no botão `Salvar correção`. Se um aluno não aparece na lista, é porque não se matriculou na disciplina. 
+
+## Email de recuperação de senha
+
+Enquanto em desenvolvimento, todos os e-mail são enviados via `smtp` para `localhost:1025`. Para acessar os emails de forma amigável, usamos [mailcatcher](https://mailcatcher.me/).

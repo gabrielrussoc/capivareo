@@ -3,7 +3,7 @@ import React, { Component } from "react"
 import Main from "./Main"
 import Navbar from './navbar'
 import Footer from "./footer"
-import { Login, Signup } from "./auth"
+import { Login, Signup, Forgot, Reset } from "./auth"
 import { HashRouter, Route } from 'react-router-dom'
 import axios from 'axios'
 import type { UserType } from '../types'
@@ -73,6 +73,8 @@ class App extends Component<Props, State> {
             algumas props. Passar a prop direto para o Route eh ignorado pelo React. */}
             <Route path="/login" render={(props) => <Login {...props} setCurrentUser={this.setCurrentUser} /> } />
             <Route path="/signup" render={(props) => <Signup {...props} setCurrentUser={this.setCurrentUser} /> } />
+            <Route path="/forgot" render={(props) => <Forgot {...props} /> } />
+            <Route path="/reset" render={(props) => <Reset {...props} /> } />
             <Route path="/disciplinas/:id" render={(props) => <Disciplina {...props} currentUser={this.state.currentUser} /> } />
             <Route path="/atividades/:id" render={(props) => <Atividade {...props} currentUser={this.state.currentUser} /> } />
             {/* TODO: 404 page */}
