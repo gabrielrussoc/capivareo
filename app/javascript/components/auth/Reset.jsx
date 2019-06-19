@@ -1,6 +1,7 @@
 // @flow
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import axios from 'axios'
+import queryString from 'query-string'
 import { Link, Redirect } from 'react-router-dom'
 
 import Avatar from '@material-ui/core/Avatar';
@@ -11,20 +12,21 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 type Props = {
-  setCurrentUser: Function,
-  classes: Object
+  classes: Object,
+  location: Object,
 };
 
 type State = {
   toHome: boolean,
-  invalidCredentials: boolean
+  errors: Object,
 };
 
 const styles = theme => ({
@@ -57,76 +59,72 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
-  forgot: {
+  desc: {
     marginTop: theme.spacing.unit,
-  }
+  },
 });
 
-class Login extends Component<Props, State> {
+class Reset extends Component<Props, State> {
 
   constructor () {
     super();
     this.state = {
       toHome: false,
-      invalidCredentials: false
+      errors: {},
     }
   }
 
-  handleLogin = (event: any) => {
-    event.preventDefault();
-
+  handleReset = (e: any) => {
+    const params = queryString.parse(this.props.location.search);
+    e.preventDefault();
     this.setState({
-      toHome: false,
-      invalidCredentials: false
-    });
-
-    const target = event.target;
-    const email = target.email.value;
-    const password = target.password.value;
-
-    axios.post('/users/sign_in.json', {
+      errors: {},
+    })
+    const password = e.target.password.value;
+    const password_confirmation = e.target.password_confirmation.value;
+    axios.put('/users/password.json', {
       user: {
-        email: email,
+        reset_password_token: params.reset_password_token,
         password: password,
-        remember_me: 1,
+        password_confirmation: password_confirmation
       }
-    }).then((res) => {
-      const user = res.data;
-      this.props.setCurrentUser(user);
+    }).then(res => {
       this.setState({
-        invalidCredentials: false,
         toHome: true,
       })
-    }).catch((err) => {
+    }).catch(err => {
       this.setState({
-        toHome: false,
-        invalidCredentials: true
+        errors: err.response.data.errors,
       })
-    })
+    });
   }
 
   render () {
+    const { classes } = this.props;
+    const errors = Object.entries(this.state.errors).map((err, idx) => 
+      <FormHelperText key={idx} error>{`${err[0]}: ${String(err[1])}`}</FormHelperText>
+    )
     if (this.state.toHome) {
       return <Redirect to="/" />
     }
-    const { classes } = this.props;
     return (
       <div className={classes.main}>
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <SettingsBackupRestoreIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Redefina sua senha
           </Typography>
-          <form className={classes.form} onSubmit={this.handleLogin}>
-            <FormControl margin="normal" required fullWidth error={this.state.invalidCredentials}>
-              <InputLabel htmlFor="email">Endereço de e-mail</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth error={this.state.invalidCredentials}>
+          {errors}
+          <form className={classes.form} onSubmit={this.handleReset}>
+            <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Senha</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" />
+              <Input name="password" type="password" id="password" autoComplete="off" />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password_confirmation">Confirme a senha</InputLabel>
+              <Input name="password_confirmation" type="password" id="password_confirmation" autoComplete="off" />
             </FormControl>
             <Button
               type="submit"
@@ -135,15 +133,8 @@ class Login extends Component<Props, State> {
               color="primary"
               className={classes.submit}
             >
-              Entrar
+              Redefinir
             </Button>
-            <Grid className={classes.forgot} container>
-              <Grid item xs>
-                <Typography variant="body1" component={Link} to="/forgot" >
-                  Esqueceu sua senha?
-                </Typography>
-              </Grid>
-            </Grid>
           </form>
         </Paper>
       </div>
@@ -152,4 +143,4 @@ class Login extends Component<Props, State> {
 }
 
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Reset);
