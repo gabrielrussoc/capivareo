@@ -1,0 +1,10 @@
+<p>Olá <%= @user.nome %>!</p>
+
+<p>Sua nota da atividade 
+<%= @atividade.nome %> de <%= @disciplina.cod + ' ' + @disciplina.nome %>
+foi incluída: <%= @nota.nota %>/100.
+</p>
+
+<p>
+    Veja todas as suas notas no <%= link_to 'Capivareo', controller: 'pages', action: 'home' %>.
+</p>

@@ -28,12 +28,21 @@ class NotasController < ApplicationController
 
   def create_or_update
     status = {}
+    notas_to_notify = []
     params[:notas].each do |n| 
       aluno_id = n[:aluno_id]
       atividade_id = n[:atividade_id]
       nota = Nota.find_or_create_by(user_id: aluno_id, atividade_id: atividade_id)
-      status[aluno_id] = !nota.update(nota: n[:nota])
+      is_different = nota.nota != n[:nota].to_i
+      has_error = !nota.update(nota: n[:nota])
+      status[aluno_id] = has_error # users with errors
+      if !has_error and is_different
+        notas_to_notify.append(nota.id)
+      end
     end
+    Nota.includes(:user, atividade: :disciplina).find(notas_to_notify).each{|nota|
+      NotaMailer.nota_email(nota.user, nota.atividade, nota.atividade.disciplina, nota).deliver_now
+    }
     render json: status
   end
 end
