@@ -43,7 +43,7 @@ Disciplina.create({
   nome: 'Introdução ao Ruby',
   descr: 'Curso introdutório da linguagem de programação Ruby',
   semestre: '2019-01-01 02:00:00',
-  user_id: User.find_by(nome: 'Marco').id
+  user_id: User.find_by(nome: 'Lucas').id
 })
 
 Disciplina.create({
@@ -59,7 +59,7 @@ Disciplina.create({
   nome: 'Testes de software II',
   descr: 'Testes da aplicação como um todo, testes de aceitação',
   semestre: '2019-01-01 02:00:00',
-  user_id: User.find_by(nome: 'Thiago').id
+  user_id: User.find_by(nome: 'Lucas').id
 })
 
 Atividade.create({
