@@ -1,5 +1,5 @@
 class NotaMailer < ApplicationMailer
-    default from: 'nao-responda@capivareo.com.br'
+    default from: 'Capivareo <nao-responda@capivareo.com.br>'
 
     def nota_email(user, atividade, disciplina, nota)
         @user = user
