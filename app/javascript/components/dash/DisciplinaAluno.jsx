@@ -1,8 +1,9 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import type { AtividadeNotaType, DisciplinaType } from '../../types';
+import UnsubscribeDisciplina from './UnsubscribeDisciplina';
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -14,6 +15,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import axios from 'axios';
 
@@ -25,7 +28,8 @@ type Props = {
 
 type State = {
   atividades: Array<AtividadeNotaType>,
-  dis: ?DisciplinaType
+  dis: ?DisciplinaType,
+  removeDisciplina: boolean
 };
 
 const styles = theme => ({
@@ -33,6 +37,12 @@ const styles = theme => ({
   },
   table: {
     margin: '0 auto',
+  },
+  button: {
+    margin: 1 * theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
   },
 });
 
@@ -43,6 +53,7 @@ class DisciplinaAluno extends Component<Props, State> {
     this.state = {
       atividades: [],
       dis: null,
+      removeDisciplina: false
     }
   }
 
@@ -82,6 +93,12 @@ class DisciplinaAluno extends Component<Props, State> {
     this.fetchDisciplina();
   }
 
+  handleCancelRemoveDisciplina = () => {
+    this.setState({
+      removeDisciplina: false,
+    })
+  }
+
   render() {
 
     if(!this.state.atividades || !this.state.dis) {
@@ -91,11 +108,24 @@ class DisciplinaAluno extends Component<Props, State> {
     const classes = this.props.classes;
     const {atividades, dis } = this.state;
     return (
+      <Fragment>
+      <UnsubscribeDisciplina
+        dis={dis}
+        open={this.state.removeDisciplina}
+        handleClose={this.handleCancelRemoveDisciplina}
+      />
       <Grid container spacing={24}>
 
         <Grid item lg={12}>
           <Typography variant='h2'>{dis.cod} {dis.nome}</Typography>
         </Grid>
+
+        <Grid item lg={12}>
+            <Button onClick={() => { this.setState({ removeDisciplina: true }) }} variant="contained" color="secondary" className={classes.button}>
+              Remover disciplina
+              <DeleteIcon className={classes.rightIcon} />
+            </Button>
+          </Grid>
 
         <Grid item lg={12} container justify='center'>
           <Grid item lg={4}>
@@ -123,6 +153,7 @@ class DisciplinaAluno extends Component<Props, State> {
         </Grid>
 
       </Grid>
+      </Fragment>
     );
   }
 };
