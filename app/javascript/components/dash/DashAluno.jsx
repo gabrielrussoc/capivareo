@@ -22,6 +22,7 @@ import Input from '@material-ui/core/Input';
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
+import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 
 import semestres from '../../semestres';
 import type { DisciplinaProfType } from '../../types';
@@ -164,9 +165,17 @@ class DashAluno extends Component<Props, State> {
           didFetch={this.state.didFetch}
           handleEnroll={this.handleEnroll}
         />
-        <Typography variant='h2'>Minhas disciplinas</Typography>
-        
+
         <Grid container spacing={24} justify='center'>
+          <Grid item lg={12}>
+            <Breadcrumbs aria-label="Breadcrumb">
+              <Typography color="textPrimary">Minhas disciplinas</Typography>
+            </Breadcrumbs>
+          </Grid>
+          
+          <Grid item lg={12}>
+            <Typography variant='h2'>Minhas disciplinas</Typography>
+          </Grid>
           
           <Grid item xs={8}>
             <Button onClick={this.handleAddDisciplina} variant="contained" color="primary" className={classes.button}>

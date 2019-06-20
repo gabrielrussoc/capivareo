@@ -22,6 +22,9 @@ import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { Link as RouterLink } from 'react-router-dom'
+import Breadcrumbs from '@material-ui/lab/Breadcrumbs'
+import Link from '@material-ui/core/Link'
 
 import axios from 'axios';
 
@@ -53,6 +56,8 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
 });
+
+const LinkRouter = props => <Link {...props} component={RouterLink} />
 
 class Atividade extends Component<Props, State> {
 
@@ -160,6 +165,18 @@ class Atividade extends Component<Props, State> {
           handleClose={this.handleDoneRemoveAtividade}
         />
         <Grid container spacing={24}>
+
+          <Grid item lg={12}>
+            <Breadcrumbs aria-label="Breadcrumb">
+              <LinkRouter color="inherit" to="/">
+                Minhas disciplinas
+              </LinkRouter>
+              <LinkRouter color="inherit" to={`/disciplinas/${dis.id}`}>
+                {dis.cod}
+              </LinkRouter>
+              <Typography color="textPrimary">{at.nome}</Typography>
+            </Breadcrumbs>
+          </Grid>
 
           <Grid item lg={12}>
             <Typography variant='h2'>{at.nome}</Typography>
