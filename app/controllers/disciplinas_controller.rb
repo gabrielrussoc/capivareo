@@ -32,7 +32,8 @@ class DisciplinasController < ApplicationController
   end
 
   def disenroll
-    User.find(current_user.id).destroy([:disciplina_id])
+    User.find(current_user.id).disciplinas.delete(params[:disciplina_id])
+    render json: {}
   end
 
   def show
