@@ -1,14 +1,13 @@
 // @flow
 import React, { Component } from "react"
 
-import smart from '../../assets/images/smart.png'
-
 import type { UserType } from '../types';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 
 import { DashAluno, DashProfessor } from './dash';
+import Landing from './Landing';
 
 type Props = {
   currentUser: UserType,
@@ -17,10 +16,6 @@ type Props = {
 };
 
 const styles = theme => ({
-  center: {
-    margin: '0 auto',
-    display: 'block',
-  },
 });
 
 class Main extends Component<Props> {
@@ -33,7 +28,7 @@ class Main extends Component<Props> {
       ? currentUser.is_prof
         ? <DashProfessor currentUser={currentUser} />
         : <DashAluno currentUser={currentUser} />
-      : <img src={smart} className={classes.center} />)
+      : <Landing />)
     );
   }
 }
