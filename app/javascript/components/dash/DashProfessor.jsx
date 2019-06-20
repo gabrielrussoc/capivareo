@@ -22,6 +22,7 @@ import Input from '@material-ui/core/Input';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
+import Breadcrumbs from '@material-ui/lab/Breadcrumbs'
 
 import axios from 'axios';
 
@@ -186,6 +187,12 @@ class DashProfessor extends Component<Props, State> {
 
         
         <Grid container spacing={24}>
+
+          <Grid item lg={12}>
+            <Breadcrumbs aria-label="Breadcrumb">
+              <Typography color="textPrimary">Minhas disciplinas</Typography>
+            </Breadcrumbs>
+          </Grid>
 
           <Grid item lg={12}>
             <Typography variant='h2'>Minhas disciplinas</Typography>

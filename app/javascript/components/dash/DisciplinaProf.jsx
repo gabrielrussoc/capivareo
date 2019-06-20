@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
-import { Link } from "react-router-dom"
 
 import axios from 'axios';
 
@@ -18,6 +17,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
+import { Link as RouterLink } from 'react-router-dom'
+import Breadcrumbs from '@material-ui/lab/Breadcrumbs'
+import Link from '@material-ui/core/Link'
 
 import CreateAtividade from './CreateAtividade';
 import EditDisciplina from './EditDisciplina';
@@ -47,6 +49,8 @@ const styles = theme => ({
     textAlign: 'center',
   }
 });
+
+const LinkRouter = props => <Link {...props} component={RouterLink} />
 
 class DisciplinaProf extends Component<Props, State> {
 
@@ -131,7 +135,7 @@ class DisciplinaProf extends Component<Props, State> {
       .map((at, idx) =>
           <Grid item xs={6} key={idx}>
             <Card className={classes.card}>
-              <CardActionArea component={Link} to={`/atividades/${at.id}`}>
+              <CardActionArea component={RouterLink} to={`/atividades/${at.id}`}>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                     {at.nome}
@@ -165,6 +169,15 @@ class DisciplinaProf extends Component<Props, State> {
         />
 
         <Grid container spacing={24}>
+
+          <Grid item lg={12}>
+            <Breadcrumbs aria-label="Breadcrumb">
+              <LinkRouter color="inherit" to="/">
+                Minhas disciplinas
+              </LinkRouter>
+              <Typography color="textPrimary">{dis.cod}</Typography>
+            </Breadcrumbs>
+          </Grid>
 
           {/* TITULO */}
           <Grid item lg={12}>

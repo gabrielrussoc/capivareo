@@ -17,6 +17,9 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -45,6 +48,8 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
 });
+
+const LinkRouter = props => <Link {...props} component={RouterLink} />;
 
 class DisciplinaAluno extends Component<Props, State> {
 
@@ -115,6 +120,15 @@ class DisciplinaAluno extends Component<Props, State> {
         handleClose={this.handleCancelRemoveDisciplina}
       />
       <Grid container spacing={24}>
+
+        <Grid item lg={12}>
+        <Breadcrumbs aria-label="Breadcrumb">
+          <LinkRouter color="inherit" to="/">
+            Minhas disciplinas
+          </LinkRouter>
+          <Typography color="textPrimary">{dis.cod}</Typography>
+        </Breadcrumbs>
+        </Grid>
 
         <Grid item lg={12}>
           <Typography variant='h2'>{dis.cod} {dis.nome}</Typography>
