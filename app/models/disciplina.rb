@@ -9,7 +9,7 @@ class Disciplina < ApplicationRecord
     validate :valid_semestre 
 
     def valid_semestre
-        if semestre.day != 1 || semestre.month != 1 || semestre.month != 7
+        if semestre == nil || semestre.day != 1 || (semestre.month != 1 && semestre.month != 7)
             errors.add(:semestre, "must be jan 1st or jul 1st")
         end
     end

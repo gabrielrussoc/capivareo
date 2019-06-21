@@ -8,6 +8,11 @@ FactoryBot.define do
   end
 
   factory :disciplina do
+    cod { "MAC0123 "}
+    nome { "Introdução ao Ruby" }
+    descr { "Linguagem de programação Ruby" }
+    semestre { "2019-01-01" }
+    user
   end
 
   factory :atividade do
