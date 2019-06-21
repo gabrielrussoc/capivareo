@@ -4,10 +4,9 @@ class NotasController < ApplicationController
 
   def quick_view
     render json:
-      Nota
-        .where(user_id: current_user.id)
+      current_user
+        .notas
         .includes(atividade: :disciplina)
-        .joins(atividade: :disciplina)
         .where(disciplinas: { semestre: params[:semestre] })
         .map{ |nota| nota.as_json(include: { atividade: { include: :disciplina } } ) }
         .as_json
