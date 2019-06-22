@@ -55,16 +55,14 @@ yarn install
 
 ## Banco de dados
 
-O banco de dados utilizado no momento é o [SQLite3](https://www.sqlite.org/index.html), padrão em projetos rails.
+O banco de dados utilizado no momento é o [PostgreSQL](https://www.postgresql.org/).
 
-É necessário apenas uma instalação do banco na máquina.
+O projeto se conecta com o banco em `localhost:5432`, padrão do PostgreSQL.
 
 ```
-$ sqlite3
-SQLite version 3.24.0 2018-06-04 14:10:15
+$ psql --version
+psql (PostgreSQL) 11.2
 ```
-
-Como SQLite3 é _serverless_, nenhuma configuração extra é necessária.
 
 ### Criando o banco
 
@@ -110,6 +108,24 @@ bundle exec rails s
 
 e verificar que tudo está funcionando acessando `localhost:3000`.
 
+## E-mails
+
+Enquanto em desenvolvimento, todos os e-mails são enviados via `smtp` para `localhost:1025`. Para acessar os emails de forma amigável, usamos [mailcatcher](https://mailcatcher.me/).
+
+## Testes
+
+Para testes, utilizamos [RSpec](https://rspec.info/) com auxílio do [FactoryBot](https://github.com/thoughtbot/factory_bot) para facilitar a criação de objetos. Os testes e as *factories* se encontram dentro do diretório `spec`.
+
+Para rodar os testes, basta rodar
+
+```
+bundle exec rake spec
+```
+
+### SimpleCov
+
+Utilizamos [SimpleCov](https://github.com/colszowka/simplecov) para verificar a cobertura do código pelos testes. Após rodá-los, o relatório é gerado em `coverage/index.html`.
+
 # Usando o sistema
 
 O sistema é muito simples de ser utilizado. É necessário fazer login para ter acesso as funcionalidades. Há duas interfaces: uma para alunos e outra para professores. Descrevemos brevemente as funcionalidades de cada um.
@@ -119,7 +135,7 @@ O sistema é muito simples de ser utilizado. É necessário fazer login para ter
 Alunos podem se matricular em disciplinas e ver as notas de suas atividades. Há um aluno padrão no banco (supondo que se rodou `rake db:seed`).
 
 ```
-email: aluno@a.com
+email: gabriel@a.com
 senha: 123456
 ```
 
@@ -130,14 +146,10 @@ Na página inicial, é possível se matricular em novas disciplinas pelo botão 
 Professores podem criar, editar e remover disciplinas. Dentro de cada disciplina, podem criar, editar e remover atividades, além de dar notas para cada aluno. Há um professor padrão no banco (supondo que se rodou `rake db:seed`).
 
 ```
-email: prof@a.com
+email: gubi@a.com
 senha: 123456
 ```
 
 Uma disciplina é criada na página inicial no botão `Nova disciplina`. As disciplinas são separadas por semestres, que pode ser escolhido na página inicial. Para editar, remover ou gerenciar as atividades de uma disciplina, basta clicar no seu cartão correspondente.
 
 Uma atividade pode ser criada pelo botão `Nova atividade` na página de uma disciplina. Para editar ou remover uma atividade, basta clicar no cartão da atividade na página da disciplina correspondente. Há um modo de correção na página atividade, que destrava os campos Nota de todos os alunos matriculados. Para que as alterações da correção tenham efeito, é necessário clicar no botão `Salvar correção`. Se um aluno não aparece na lista, é porque não se matriculou na disciplina. 
-
-## Email de recuperação de senha
-
-Enquanto em desenvolvimento, todos os e-mail são enviados via `smtp` para `localhost:1025`. Para acessar os emails de forma amigável, usamos [mailcatcher](https://mailcatcher.me/).
