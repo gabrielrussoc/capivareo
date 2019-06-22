@@ -120,9 +120,9 @@ class Atividade extends Component<Props, State> {
   saveNotas = (event: any) => {
     event.preventDefault();
     const params = {
+      atividade_id: this.props.match.params.id,
       notas: Array.from(event.target.notas).map((nota) => ({
         aluno_id: nota.dataset.alunoId,
-        atividade_id: this.props.match.params.id,
         nota: nota.value,
     }))};
     axios.post('/notas', params)

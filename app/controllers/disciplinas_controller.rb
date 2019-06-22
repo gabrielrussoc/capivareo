@@ -56,16 +56,4 @@ class DisciplinasController < ApplicationController
   def disciplina_params
     params.require(:disciplina).permit(:cod, :descr, :nome, :semestre, :user_id)
   end
-
-  def is_prof?
-    unless current_user.is_prof
-      render json: {"error": "Você não tem permissão!"}, status: :forbidden
-    end
-  end
-
-  def is_aluno?
-    unless !current_user.is_prof
-      render json: {"error": "Você não tem permissão!"}, status: :forbidden
-    end
-  end
 end

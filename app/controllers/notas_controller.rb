@@ -1,6 +1,9 @@
 class NotasController < ApplicationController
   before_action :authenticate_user!
-  # TODO: validacoes
+  before_action :is_aluno?, only: [:quick_view]
+  before_action :is_prof?, only: [:index, :create_or_update]
+  before_action :owns_disciplina, only: [:index]
+  before_action :owns_atividade, only: [:create_or_update]
 
   def quick_view
     render json:
@@ -28,9 +31,9 @@ class NotasController < ApplicationController
   def create_or_update
     status = {}
     notas_to_notify = []
+    atividade_id = params[:atividade_id]
     params[:notas].each do |n| 
       aluno_id = n[:aluno_id]
-      atividade_id = n[:atividade_id]
       nota = Nota.find_or_create_by(user_id: aluno_id, atividade_id: atividade_id)
       is_different = nota.nota != n[:nota].to_i
       has_error = !nota.update(nota: n[:nota])
@@ -43,5 +46,19 @@ class NotasController < ApplicationController
       NotaMailer.nota_email(nota.user, nota.atividade, nota.atividade.disciplina, nota).deliver_now
     }
     render json: status
+  end
+
+  private
+
+  def owns_disciplina
+    unless Disciplina.find(params[:dis_id]).user_id == current_user.id
+      render json: {"error": "Você não tem permissão."}, status: :forbidden
+    end
+  end
+
+  def owns_atividade
+    unless Atividade.find(params[:atividade_id]).disciplina.user_id == current_user.id
+      render json: {"error": "Você não é o professor responsável."}, status: :forbidden
+    end
   end
 end
