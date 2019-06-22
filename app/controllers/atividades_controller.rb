@@ -1,7 +1,6 @@
 class AtividadesController < ApplicationController
   before_action :authenticate_user!
-  # validar aluno e professor
-  # validar nome e descricao
+  before_action :is_prof?, only: [:show]
 
   def index
     atividades = Disciplina.find(params[:dis_id]).atividades
