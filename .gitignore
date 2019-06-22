@@ -42,3 +42,6 @@ yarn-debug.log*
 
 # VS Code
 .vscode
+
+# SimpleCov reports
+coverage
