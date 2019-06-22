@@ -16,6 +16,9 @@ FactoryBot.define do
   end
 
   factory :atividade do
+    nome { "EP1" }
+    desc { "Primeiro ex programa" }
+    disciplina
   end
 
   factory :nota do
