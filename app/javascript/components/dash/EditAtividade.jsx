@@ -36,6 +36,7 @@ class EditAtividade extends Component<Props> {
     const desc = target.descr.value;
 
     axios.put('/atividades', {
+      id: id,
       atividade: {
         id: id,
         nome: nome,
