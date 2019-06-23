@@ -4,7 +4,23 @@ FactoryBot.define do
     password { "banana" }
     email { "joao@email.com" }
     nusp { "9298041" }
+    is_prof { true }
+  end
+
+  factory :aluno, class: 'User' do
+    nome { "Gabriel "}
+    password { "123456" }
+    email { "gabriel@email.com" }
+    nusp { "4321" }
     is_prof { false }
+  end
+
+  factory :prof, class: 'User' do
+    nome { "Gubi "}
+    password { "123456" }
+    email { "gubi@email.com" }
+    nusp { "1234" }
+    is_prof { true }
   end
 
   factory :disciplina do

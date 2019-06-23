@@ -1,6 +1,6 @@
 class NotasController < ApplicationController
   before_action :authenticate_user!
-  before_action :is_aluno?, only: [:quick_view]
+  before_action :is_aluno?, only: [:index, :quick_view]
   before_action :is_prof?, only: [:create_or_update]
   before_action :owns_atividade, only: [:create_or_update]
 
