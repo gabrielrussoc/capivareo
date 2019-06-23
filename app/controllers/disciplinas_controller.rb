@@ -2,7 +2,7 @@ class DisciplinasController < ApplicationController
   before_action :authenticate_user!
   before_action :is_prof?, only: [:create, :index_my, :destroy, :update]
   before_action :is_aluno?, only: [:enroll, :disenroll, :index]
-  before_action :own_disciplina?, only: [:show, :update, :destroy]
+  before_action :own_disciplina?, only: [:update, :destroy]
 
   def index
     render json: 
