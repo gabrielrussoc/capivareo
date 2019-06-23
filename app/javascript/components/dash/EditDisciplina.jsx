@@ -52,6 +52,7 @@ class EditDisciplina extends Component<Props, State> {
     const semestre = target.semestre.value;
 
     axios.put('/disciplinas', {
+      id: id,
       disciplina: {
         id: id,
         nome: nome,
