@@ -1,6 +1,8 @@
 class AtividadesController < ApplicationController
   before_action :authenticate_user!
-  before_action :is_prof?, only: [:show]
+  before_action :is_prof?, only: [:create, :show, :update, :destroy]
+  before_action :own_disciplina?, only: [:create]
+  before_action :own_atividade?, only: [:update, :show, :destroy]
 
   def index
     atividades = Disciplina.find(params[:dis_id]).atividades
@@ -39,6 +41,18 @@ class AtividadesController < ApplicationController
   end
 
   private
+
+  def own_disciplina?
+    unless Disciplina.find(params[:atividade][:disciplina_id]).user_id == current_user.id
+      render json: {"error": "Você não tem permissão."}, status: :forbidden
+    end
+  end
+
+  def own_atividade?
+    unless Atividade.find(params[:id]).disciplina.user_id == current_user.id
+      render json: {"error": "Você não tem permissão."}, status: :forbidden
+    end
+  end
 
   def atividade_params
     params.require(:atividade).permit(:nome, :desc, :disciplina_id)
