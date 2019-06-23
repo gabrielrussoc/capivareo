@@ -1,8 +1,7 @@
 class NotasController < ApplicationController
   before_action :authenticate_user!
   before_action :is_aluno?, only: [:quick_view]
-  before_action :is_prof?, only: [:index, :create_or_update]
-  before_action :owns_disciplina, only: [:index]
+  before_action :is_prof?, only: [:create_or_update]
   before_action :owns_atividade, only: [:create_or_update]
 
   def quick_view
@@ -49,12 +48,6 @@ class NotasController < ApplicationController
   end
 
   private
-
-  def owns_disciplina
-    unless Disciplina.find(params[:dis_id]).user_id == current_user.id
-      render json: {"error": "Você não tem permissão."}, status: :forbidden
-    end
-  end
 
   def owns_atividade
     unless Atividade.find(params[:atividade_id]).disciplina.user_id == current_user.id
