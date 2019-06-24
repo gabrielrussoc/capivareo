@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/gabrielrussoc/capivareo.svg?branch=master)](https://travis-ci.org/gabrielrussoc/capivareo)
 [![Coverage Status](https://coveralls.io/repos/github/gabrielrussoc/capivareo/badge.svg?branch=master)](https://coveralls.io/github/gabrielrussoc/capivareo?branch=master)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=capivareo&style=flat&svg=1)](https://capivareo.herokuapp.com)
 
 Capivareo é um sistema de controle de atividades e notas desenvolvido como parte da matéria MAC0218 - Técnicas de Programação do IME-USP no primeiro semestre de 2019.
 
