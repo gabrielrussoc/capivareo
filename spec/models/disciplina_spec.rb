@@ -10,7 +10,7 @@ RSpec.describe Disciplina, type: :model do
   end
 
   it 'is invalid without a code' do
-    expect(build(:disciplina, nome: '')).to_not be_valid
+    expect(build(:disciplina, cod: '')).to_not be_valid
   end
 
   it 'is invalid without a semester' do
