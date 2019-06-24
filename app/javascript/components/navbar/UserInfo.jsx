@@ -20,9 +20,10 @@ function shortName(user: UserType): string {
 class UserInfo extends Component<Props> {
 
   handleLogout = () => {
-    axios.delete('/users/sign_out.json', {}).then(() => {
-      this.props.setCurrentUser(null);
-    });
+    const sessionCookieName = '_capivareo_session' 
+    document.cookie = sessionCookieName + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    this.props.setCurrentUser(null);
+    axios.delete('/users/sign_out.json', {});
   }
 
   render () {
