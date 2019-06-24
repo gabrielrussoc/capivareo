@@ -59,6 +59,14 @@ const styles = theme => ({
 
 const LinkRouter = props => <Link {...props} component={RouterLink} />
 
+function isIterable(obj) {
+  // checks for null and undefined
+  if (obj == null) {
+    return false;
+  }
+  return typeof obj[Symbol.iterator] === 'function';
+}
+
 class Atividade extends Component<Props, State> {
 
   constructor() {
@@ -119,9 +127,11 @@ class Atividade extends Component<Props, State> {
 
   saveNotas = (event: any) => {
     event.preventDefault();
+    const notasInputs = event.target.notas;
+    const notasArr = isIterable(notasInputs) ? Array.from(notasInputs) : [notasInputs];
     const params = {
       atividade_id: this.props.match.params.id,
-      notas: Array.from(event.target.notas).map((nota) => ({
+      notas: notasArr.map((nota) => ({
         aluno_id: nota.dataset.alunoId,
         nota: nota.value,
     }))};
