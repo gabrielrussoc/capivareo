@@ -66,6 +66,7 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end
 
 # Materialize CSS
