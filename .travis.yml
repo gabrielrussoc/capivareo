@@ -1,0 +1,16 @@
+addons:
+  postgresql: "11.2"
+services:
+  - postgresql
+language: ruby
+dist: xenial
+install:
+  - bundle install
+  - node -v
+  - npm i -g yarn
+  - yarn
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+script:
+  - rake spec
