@@ -99,10 +99,25 @@ RSpec.describe NotasController, type: :controller do
             expect(response.status).to eq(403)
         end
 
-        it 'can grade atividades' do
+        it 'can grade atividade' do
+            prof = subject.current_user
+            aluno = create(:aluno)
             dis = create(:disciplina, user: prof)
             at = create(:atividade, disciplina: dis)
-            post :create_or_update, params: { atividade_id: at.id, notas: [] }, as: :json
+            aluno.disciplinas << dis
+            params = {
+                atividade_id: at.id,
+                notas: [
+                    {
+                        aluno_id: aluno.id,
+                        nota: 3
+                    }
+                ]
+            }
+            post :create_or_update, params: params, as: :json
+            expect(response.status).to eq(200)
+            res = JSON.parse(response.body)
+            expect(res[aluno.id.to_s]).to eq(false) # no errors on the grade
         end
     end
 end
