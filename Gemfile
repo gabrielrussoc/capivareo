@@ -81,3 +81,7 @@ gem 'react-rails'
 # Devise
 # https://github.com/plataformatec/devise
 gem 'devise'
+
+# Coveralls
+# https://coveralls.io
+gem 'coveralls', require: false

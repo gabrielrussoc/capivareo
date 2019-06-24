@@ -14,3 +14,8 @@ before_script:
   - cp config/database.yml.travis config/database.yml
 script:
   - rake spec
+deploy:
+  provider: heroku
+  api_key:
+    secure: "ad136cb7-1f2c-45f2-8d10-0508eeb1be70"
+  run: "rake db:migrate"
